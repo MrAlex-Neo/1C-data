@@ -1,6 +1,50 @@
 import CollectModel from '../models/Collection.js'
 
 
+
+export const getAll = async (req, res) => {
+    try {
+        const posts = await CollectModel.find();
+        res.json(posts)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: "Не удалось получить коллекции",
+        })
+    }
+};
+
+export const getOne = async (req, res) => {
+    try {
+        const collectId = req.params.id;
+        const updatedForm = await CollectModel.findOneAndUpdate(
+            {
+                _id: collectId
+            }, 
+            {
+                $inc: { viewsCount: 1 } // Инкрементируем счетчик просмотров
+            }, 
+            {
+                new: true // Для возврата обновленного документа
+            }
+        );
+
+        if (!updatedForm) {
+            return res.status(404).json({
+                message: "Коллекция не найдена",
+            });
+        }
+
+        res.json(updatedForm);
+ 
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить коллекцию",
+        });
+    }
+};
+
 export const create =  async (req, res) => {
     try {
         const doc = new CollectModel({

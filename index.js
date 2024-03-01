@@ -25,6 +25,8 @@ app.post('/auth/login', loginValidation, UserController.login)
 app.post('/collect', CollectCreateValidation, CollectController.create)
 app.delete('/collect/:id', CollectController.remove)
 app.patch('/collect/:id', CollectCreateValidation, CollectController.update)
+app.get('/collect', CollectController.getAll)
+app.get('/collect/:id', CollectController.getOne)
 
 
 app.listen(port, (err) => {
