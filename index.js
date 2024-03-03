@@ -30,7 +30,6 @@ app.patch('/collect/:id', CollectCreateValidation, CollectController.update)
 app.get('/collect', CollectController.getAll)
 app.get('/collect/:id', CollectController.getOne)
 
-
 app.listen(port, (err) => {
     if (err) {
         return console.log(err)
