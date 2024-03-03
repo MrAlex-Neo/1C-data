@@ -21,8 +21,8 @@ const port = process.env.PORT || 4444;
 app.use(express.json());
 app.use(cors());
 
+app.get('/auth/me', checkAuth , UserController.getMe)
 app.post('/auth/login', loginValidation, UserController.login)
-app.get('/me', checkAuth , UserController.getMe)
 
 app.post('/collect', CollectCreateValidation, CollectController.create)
 app.delete('/collect/:id', CollectController.remove)
