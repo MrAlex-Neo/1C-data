@@ -6,6 +6,7 @@ dotenv.config();
 
 import { loginValidation, CollectCreateValidation } from "./validations.js";
 import { UserController, CollectController } from "./controllers/index.js";
+import checkAuth from "./utils/checkAuth.js";
 
 
 mongoose
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/auth/login', loginValidation, UserController.login)
+app.get('/auth/me', checkAuth , UserController.getMe)
 
 app.post('/collect', CollectCreateValidation, CollectController.create)
 app.delete('/collect/:id', CollectController.remove)
